@@ -1,7 +1,18 @@
 cmake_minimum_required(VERSION 3.12.0)
 project(PDCurses VERSION 0.1.0 LANGUAGES C)
 
-add_compile_options(-O2 -w -DPDC_FORCE_UTF8)
+option(WIDE "Export wchar functions" ON)
+option(UTF8 "Force utf-8 format" ON)
+
+if (WIDE)
+    add_compile_options(-DPDC_WIDE)
+endif()
+
+if (UTF8)
+    add_compile_options(-DPDC_FORCE_UTF8)
+endif()
+
+add_compile_options(-O2 -w)
 
 file(GLOB SOURCES CONFIGURE_DEPENDS ./pdcurses/*.c)
 
